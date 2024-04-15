@@ -1,0 +1,24 @@
+{
+	"sources": {
+	  "metadata": {
+		"deps": [
+		  "six>=1.8.0"
+		],
+		"srctype": "metadata"
+	  },
+	  "pep517": {
+		"deps": [
+		  "wheel"
+		],
+		"srctype": "pep517"
+	  },
+	  "pep518": {
+		"deps": [
+		  "setuptools",
+		  "wheel"
+		],
+		"srctype": "pep518"
+	  }
+	}
+  }
+	  
