@@ -19,9 +19,9 @@ BuildRequires(pre): rpm-build-pyproject
 %pyproject_runtimedeps_metadata
 %pyproject_builddeps_build
 
-%if_without check
+%if_with check
 %pyproject_builddeps_metadata
-# %pyproject_builddeps_metadata_extra testsuite.py
+%pyproject_builddeps_metadata_extra testsuite.py
 %pyproject_builddeps_check
 %endif
 
@@ -72,7 +72,7 @@ This package contains demo for %pypi_name.
 # %tox_create_default_config
 # %tox_check_pyproject
 # echo "rlnbesiorng\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
-# %pyproject_run_pytest -vra %buildroot/testsuite.py
+%pyproject_run_pytest -ra %buildroot/testsuite.py
 # echo "rlnbesiorng\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 
 %files
