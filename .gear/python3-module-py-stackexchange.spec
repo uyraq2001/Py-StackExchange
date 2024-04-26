@@ -2,7 +2,8 @@
 %define pypi_name py-stackexchange
 %define short_name stackexchange
 
-%def_with check
+# Network connection required for tests
+%def_without check
 
 Name:    python3-module-%pypi_name
 Version: 2.2.7
@@ -21,7 +22,6 @@ BuildRequires(pre): rpm-build-pyproject
 
 %if_with check
 %pyproject_builddeps_metadata
-%pyproject_builddeps_metadata_extra testsuite.py
 %pyproject_builddeps_check
 %endif
 
@@ -34,17 +34,6 @@ Source1: %pyproject_deps_config_name
 Stack Overflow command line written in python. Using SoCLI you can
 search and browse Stack Overflow without leaving the terminal.
 
-%package tests
-Summary: Tests for %name
-Group: Development/Python3
-Requires: %name = %EVR
-
-%description tests
-Stack Overflow command line written in python. Using SoCLI you can
-search and browse Stack Overflow without leaving the terminal.
-
-This package contains tests for %pypi_name.
-
 %package demo
 Summary: Demo for %name
 Group: Development/Python3
@@ -55,7 +44,6 @@ Stack Overflow command line written in python. Using SoCLI you can
 search and browse Stack Overflow without leaving the terminal.
 
 This package contains demo for %pypi_name.
-
 
 %prep
 %setup -n %name-%version
@@ -69,19 +57,17 @@ This package contains demo for %pypi_name.
 %pyproject_install
 
 %check
-# %tox_create_default_config
-# %tox_check_pyproject
-# echo "rlnbesiorng\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
-%pyproject_run_pytest -ra %buildroot/testsuite.py
-# echo "rlnbesiorng\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+%pyproject_run_pytest -ra ./testsuite.py -k "not test_fetch_question and not test_pagesize_independence"
 
 %files
 %doc *.md
-%python3_sitelibdir/%short_name/
+%python3_sitelibdir/%short_name
 %python3_sitelibdir/%{pyproject_distinfo %pypi_name}
 %python3_sitelibdir/stackauth.py
-%exclude %python3_sitelibdir/__pycache__/*
-%exclude %python3_sitelibdir/testsuite.py
+%python3_sitelibdir/__pycache__/*
+
+%files demo
+%doc demo/*
 
 %changelog
 * Mon Apr 22 2024 Yuri Kozyrev <kozyrevid@altlinux.org> 2.2.7-alt1
